@@ -21,3 +21,16 @@ To compile the code, run the following command:
 ```bash
 sudo g++ -std=c++11 netmon.cpp -o netmon && ./netmon
 ```
+
+
+## Arduino Environment Setup
+
+```bash 
+sudo chmod 660 /dev/ttyACM0
+```
+```bash 
+sudo dnf install boost-devel
+```
+```bash 
+sudo dnf install libserial
+```
