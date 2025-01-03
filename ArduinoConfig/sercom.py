@@ -1,19 +1,19 @@
 import serial
 import time
 
-# Open the serial port
-ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)  # Replace with your serial port
-time.sleep(2)  # Give Arduino time to reset
 
-# Write a simple command
+ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
+time.sleep(2)
+
+
 ser.write(b"1 0 1 0 1 0 1 1\n")
 
-# Read the response from Arduino
+
 while True:
-    line = ser.readline().decode("utf-8").strip()  # Read line and decode it
+    line = ser.readline().decode("utf-8").strip()
     if line:
-        print("Received:", line)  # Print the response
-        break  # Stop after the first response
-    time.sleep(0.1)  # Wait a bit before trying again
+        print("Received:", line)
+        break
+    time.sleep(0.1)
 
 ser.close()
