@@ -6,7 +6,7 @@ ser = serial.Serial("/dev/ttyUSB0", 9600, timeout=1)
 time.sleep(2)
 
 
-ser.write(b"1 0 1 0 1 0 1 1\n")
+ser.write(b"0 0 0 0 1 0 1 1\n")
 
 
 while True:
