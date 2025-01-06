@@ -26,7 +26,7 @@ sudo g++ -std=c++11 netmon.cpp -o netmon && ./netmon
 ## Arduino Environment Setup
 
 ```bash 
-sudo chmod 660 /dev/ttyACM0
+sudo chmod 660 /dev/ttyUSB0
 ```
 ```bash 
 sudo dnf install boost-devel
