@@ -87,11 +87,11 @@ class SerialCommunication:
             raise
 
 
-# Example usage:
-if __name__ == "__main__":
-    try:
-        with SerialCommunication() as comm:
-            response = comm.send_command("1 0 1 0 1 0 1 1\n")
-            print("Response from device:", response)
-    except Exception as e:
-        print(f"Error during communication: {e}")
+# # Example usage:
+# if __name__ == "__main__":
+#     try:
+#         with SerialCommunication() as comm:
+#             response = comm.send_command("1 0 1 0 1 0 1 1\n")
+#             print("Response from device:", response)
+#     except Exception as e:
+#         print(f"Error during communication: {e}")

@@ -1,19 +1,19 @@
 import time
 import socket
 from typing import List
-from HardwareManagementFramework.SerialCommunication.SerialCommunication import (
-    SerialCommunication,
-)
+from Command.Command import Command
 
 
-class RouterManager(SerialCommunication):
+class RouterManager:
     """
     A specialized class for communicating with a specific device.
     Inherits from SerialCommunication.
     """
 
-    def __init__(self, port: str = None, baud_rate: int = 9600, timeout: int = 5):
-        super().__init__(port, baud_rate, timeout)
+    def __init__(self):
+        # is_internet_available = self.is_internet_available()
+        self.myCommand = Command()
+        self.restart_router()
 
     def restart_router(self) -> List[str]:
         """
@@ -25,13 +25,27 @@ class RouterManager(SerialCommunication):
         Returns:
             List[str]: Processed response from the device.
         """
-        # self.open_port()
-        # try:
-        #     response = self.send_command(command)
-        #     # Perform additional processing if needed
-        #     return response
-        # finally:
-        #     self.close_port()
+        try:
+            print("Turing off 8 Port Switch...")
+            self.myCommand.send_command_to_MC("0 0 0 0 0 0 0 1")
+            print("8 Port Switch is off !!")
+            time.sleep(1)
+            print("Turing off GX Router")
+            self.myCommand.send_command_to_MC("0 0 0 0 0 0 0 0")
+            print("GX Router is off !!")
+
+            time.sleep(30)
+            print("Waiting for 30 seconds.")
+
+            print("Turing on 8 Port Switch...")
+            self.myCommand.send_command_to_MC("0 0 0 0 0 0 1 0")
+            print("8 Port Switch is on !!")
+            time.sleep(1)
+            print("Turing on GX Router")
+            self.myCommand.send_command_to_MC("0 0 0 0 0 0 1 1")
+            print("GX Router is on !!")
+        except Exception as e:
+            print(f"Error during communication: {e}")
 
     def check_connection(self, host: str, port: int = 53, timeout: int = 3) -> bool:
         """
