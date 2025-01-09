@@ -3,7 +3,7 @@
 
 CURRENT_DIR=$(pwd)
 echo "Process Started !!"
-cd /home/kaeshur/Documents/sermon
+cd /home/sv_admin/production/sermon
 
 
 
