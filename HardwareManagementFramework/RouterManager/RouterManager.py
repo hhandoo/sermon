@@ -27,22 +27,22 @@ class RouterManager:
         """
         try:
             print("Turing off 8 Port Switch...")
-            self.myCommand.send_command_to_MC("0 0 0 0 0 0 0 1")
+            self.myCommand.send_command_to_MC("0 0 0 0 0 0 1 1")
             print("8 Port Switch is off !!")
             time.sleep(1)
             print("Turing off GX Router")
-            self.myCommand.send_command_to_MC("0 0 0 0 0 0 0 0")
+            self.myCommand.send_command_to_MC("0 0 0 0 0 0 1 1")
             print("GX Router is off !!")
 
             time.sleep(30)
             print("Waiting for 30 seconds.")
 
             print("Turing on 8 Port Switch...")
-            self.myCommand.send_command_to_MC("0 0 0 0 0 0 1 0")
+            self.myCommand.send_command_to_MC("1 1 0 0 0 0 1 1")
             print("8 Port Switch is on !!")
             time.sleep(1)
             print("Turing on GX Router")
-            self.myCommand.send_command_to_MC("0 0 0 0 0 0 1 1")
+            self.myCommand.send_command_to_MC("1 1 0 0 0 0 1 1")
             print("GX Router is on !!")
         except Exception as e:
             print(f"Error during communication: {e}")
