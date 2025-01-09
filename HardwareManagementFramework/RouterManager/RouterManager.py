@@ -34,8 +34,8 @@ class RouterManager:
             self.myCommand.send_command_to_MC("0 0 0 0 0 0 1 1")
             print("GX Router is off !!")
 
-            time.sleep(30)
             print("Waiting for 30 seconds.")
+            time.sleep(30)
 
             print("Turing on 8 Port Switch...")
             self.myCommand.send_command_to_MC("1 1 0 0 0 0 1 1")
