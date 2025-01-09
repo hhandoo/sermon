@@ -2,6 +2,7 @@
 
 
 CURRENT_DIR=$(pwd)
+date
 echo "Process Started !!"
 cd /home/sv_admin/production/sermon
 
