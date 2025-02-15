@@ -3,14 +3,10 @@ import { Container, Switch, Typography, Paper } from "@mui/material";
 import { Grid2 } from "@mui/material";
 
 const appliances = [
-  "Router",
-  "8 Port Switch",
+  "Undefined 1",
   "Undefined 2",
-  "Undefined 3",
-  "Undefined 4",
-  "Undefined 5",
-  "Undefined 6",
-  "Undefined 7",
+  "GX Router",
+  "8 Port Switch"
 ];
 
 function App() {
