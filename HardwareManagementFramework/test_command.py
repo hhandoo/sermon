@@ -16,7 +16,7 @@ try:
     print(f"Sent: {command.strip()}")
 
     # Read response (optional)
-    response = ser.readline().decode().strip()
+    response = ser.readline()
     print(f"Received: {response}")
 
     # Close serial connection
