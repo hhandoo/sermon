@@ -17,8 +17,7 @@ try:
 
     # Read response (optional)
     response = ser.readline().decode().strip()
-    if response:
-        print(f"Received: {response}")
+    print(f"Received: {response}")
 
     # Close serial connection
     ser.close()
