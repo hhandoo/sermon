@@ -9,7 +9,7 @@ class SerialCommunication:
     A class for handling serial communication with a device.
     """
 
-    def __init__(self, port: str = None, baud_rate: int = 9600, timeout: int = 5):
+    def __init__(self, port: str = None, baud_rate: int = 115200, timeout: int = 5):
         """
         Initializes the SerialCommunication instance.
 
