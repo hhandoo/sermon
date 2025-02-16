@@ -30,24 +30,15 @@ class RouterManager:
             List[str]: Processed response from the device.
         """
         try:
-            print("Turing off 8 Port Switch...")
-            self.myCommand.send_command_to_MC("0010")
-            print("8 Port Switch is off !!")
-            time.sleep(1)
-            print("Turing off GX Router")
-            self.myCommand.send_command_to_MC("0000")
-            print("GX Router is off !!")
-
-            print("Waiting for 3 seconds.")
+            self.myCommand.send_command_to_MC("0010", desc="8 Port Switch turned off.")
+            time.sleep(5)
+            self.myCommand.send_command_to_MC("0000", desc="Turing off GX Router")
+            print("Waiting for 30 seconds.")
             time.sleep(30)
 
-            print("Turing on 8 Port Switch...")
-            self.myCommand.send_command_to_MC("0001")
-            print("8 Port Switch is on !!")
-            time.sleep(1)
-            print("Turing on GX Router")
-            self.myCommand.send_command_to_MC("0011")
-            print("GX Router is on !!")
+            self.myCommand.send_command_to_MC("0001", desc="8 Port Switch turned on.")
+            time.sleep(5)
+            self.myCommand.send_command_to_MC("0011", desc="Turing on GX Router")
         except Exception as e:
             print(f"Error during communication: {e}")
 

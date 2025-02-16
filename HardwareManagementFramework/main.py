@@ -1,7 +1,9 @@
 import os
+import argparse
+
 from dotenv import load_dotenv
 from RouterManager.RouterManager import RouterManager
-from DatabaseController.DatabaseController import DatabaseController
+from Command.Command import Command
 
 load_dotenv()
 
@@ -10,19 +12,30 @@ def main():
     """
     Entry point for the application.
     """
+    parser = argparse.ArgumentParser(
+        description="CLI tool for monitoring and command execution"
+    )
+
+    parser.add_argument(
+        "--auto", action="store_true", help="Enable Auto Monitor Mode"
+    )  # Fix: Boolean flag
+    parser.add_argument("--on-demand-command", type=str, help="Send Command")
+    parser.add_argument(
+        "--get-states", action="store_true", help="Get list of all states"
+    )
+
+    args = parser.parse_args()
+
     try:
-        # RouterManager()
-
-        db = DatabaseController()
-
-        active_record = db.get_active_appliance_control()
-        print("Active Record:", active_record)
-
-        # Insert a new record (this will also update the previous active record)
-        db.update_and_insert_appliance_control("1110", "Fan ON")
-
-        # Close connection
-        db.close_connection()
+        if args.auto:
+            RouterManager()
+        if args.on_demand_command:
+            my_com = Command()
+            my_com.send_command_to_MC(command=args.on_demand_command, desc="On Demand")
+        if args.get_states:
+            my_com = Command()
+            resp = my_com.get_all_states()
+            print(resp)
     except Exception as e:
         print(f"Something Went Wrong: [{e}]")
 

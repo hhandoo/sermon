@@ -10,7 +10,7 @@ cd /home/sv_admin/production/sermon
 
 source .venv/bin/activate
 cd HardwareManagementFramework
-python3 main.py
+python3 main.py --auto
 cd ..
 deactivate
 echo "Process Ended !!"

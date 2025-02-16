@@ -19,7 +19,6 @@ class Command:
                 if port:
                     with SerialCommunication(port=port) as comm:
                         old_command = json.loads(self.get_last_command())
-                        print(old_command)
                         old_state = old_command["switch_states"]
                         old_desc = old_command["state_description"]
                         old_time = old_command["valid_from"]
@@ -42,7 +41,6 @@ class Command:
                 else:
                     with SerialCommunication() as comm:
                         old_command = json.loads(self.get_last_command())
-                        print(old_command)
                         old_state = old_command["switch_states"]
                         old_desc = old_command["state_description"]
                         old_time = old_command["valid_from"]
@@ -107,9 +105,31 @@ class Command:
         <p>If this change was not expected, please review the system logs.</p>
         """
 
-        self._NotificationSystem.send_mailjet_email(
-            "handoo.harsh@gmail.com",
-            "handoo.harsh@gmail.com",
-            "State Change Notification",
-            html_text,
-        )
+        try:
+
+            self._NotificationSystem.send_mailjet_email(
+                "handoo.harsh@gmail.com",
+                "handoo.harsh@gmail.com",
+                "State Change Notification",
+                html_text,
+            )
+        except Exception as e:
+            print(e)
+            print("Notification wasn't sent")
+
+    def get_all_states(self) -> str:
+        query = "select * from iot.sermon_appliance_control;"
+        results = self._DatabaseController._execute_query(query, fetch=True)
+        if not results:
+            return json.dumps([])
+        try:
+            cursor = self._DatabaseController.get_conn().cursor()
+            cursor.execute(query)
+            columns = [column[0] for column in cursor.description]
+            cursor.close()
+            data = [dict(zip(columns, row)) for row in results]
+            return json.dumps(data, default=str)
+
+        except Exception as e:
+            print(f"Error processing query results: {e}")
+            return json.dumps([])

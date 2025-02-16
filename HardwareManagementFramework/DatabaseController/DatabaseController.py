@@ -25,9 +25,11 @@ class DatabaseController:
                 f"UID={self._user};"
                 f"PWD={self._password};"
             )
-            print("Database connection established.")
         except Exception as e:
             print(f"Connection error: {e}")
+
+    def get_conn(self):
+        return self.__connection
 
     def _disconnect(self):
         """Protected method to close the database connection."""
