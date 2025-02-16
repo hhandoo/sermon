@@ -25,14 +25,6 @@ class DatabaseController:
                 f"UID={self._user};"
                 f"PWD={self._password};"
             )
-            print(
-                f"DRIVER={{PostgreSQL Unicode}};"
-                f"SERVER={self._host};"
-                f"PORT={self._port};"
-                f"DATABASE={self._database};"
-                f"UID={self._user};"
-                f"PWD={self._password};"
-            )
             print("Database connection established.")
         except Exception as e:
             print(f"Connection error: {e}")
