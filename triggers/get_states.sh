@@ -1,8 +1,6 @@
 #!/bin/bash
 
 CURRENT_DIR=$(pwd)
-date
-echo "Process Started: Getting States"
 
 cd /home/sv_admin/production/sermon
 
