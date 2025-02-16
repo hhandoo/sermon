@@ -11,18 +11,18 @@ def main():
     Entry point for the application.
     """
     try:
-        RouterManager()
+        # RouterManager()
 
-        # db = DatabaseController()
+        db = DatabaseController()
 
-        # active_record = db.get_active_appliance_control()
-        # print("Active Record:", active_record)
+        active_record = db.get_active_appliance_control()
+        print("Active Record:", active_record)
 
-        # # Insert a new record (this will also update the previous active record)
-        # db.update_and_insert_appliance_control("1110", "Fan ON")
+        # Insert a new record (this will also update the previous active record)
+        db.update_and_insert_appliance_control("1110", "Fan ON")
 
-        # # Close connection
-        # db.close_connection()
+        # Close connection
+        db.close_connection()
     except Exception as e:
         print(f"Something Went Wrong: [{e}]")
 
