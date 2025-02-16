@@ -13,11 +13,13 @@ class Command:
     def send_command_to_MC(
         self, command: str, port: str = None, desc: str = "NA"
     ) -> str:
+        print("enter")
         if command != None and command != "":
             try:
                 if port:
                     with SerialCommunication(port=port) as comm:
                         old_command = json.loads(self.get_last_command())
+                        print(old_command)
                         old_state = old_command["switch_states"]
                         old_desc = old_command["state_description"]
                         old_time = old_command["valid_from"]
@@ -40,6 +42,7 @@ class Command:
                 else:
                     with SerialCommunication() as comm:
                         old_command = json.loads(self.get_last_command())
+                        print(old_command)
                         old_state = old_command["switch_states"]
                         old_desc = old_command["state_description"]
                         old_time = old_command["valid_from"]
@@ -58,7 +61,7 @@ class Command:
                             datetime.now(),
                         )
                         return response
-                    
+
                 self._DatabaseController.close_connection()
             except Exception as e:
                 print(f"Error during communication: {e}")
