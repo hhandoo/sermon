@@ -14,13 +14,13 @@ class Command:
                 if port:
                     with SerialCommunication(port=port) as comm:
                         response = comm.send_command(f"{command}\n")
-                        updated_state = response[0]
+                        updated_state = response[0][0]
                         print(response)
                         return response
                 else:
                     with SerialCommunication() as comm:
                         response = comm.send_command(f"{command}\n")
-                        updated_state = response[0]
+                        updated_state = response[0][0]
                         print(response)
                         return response
             except Exception as e:
