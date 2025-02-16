@@ -12,6 +12,5 @@ python3 main.py --get-states
 
 cd ..
 deactivate
-echo "Process Ended !!"
 
 cd "$CURRENT_DIR"

@@ -12,6 +12,5 @@ python3 main.py --on-demand-command "$1"
 
 cd ..
 deactivate
-echo "Process Ended !!"
 
 cd "$CURRENT_DIR"
