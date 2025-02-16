@@ -25,6 +25,14 @@ class DatabaseController:
                 f"UID={self._user};"
                 f"PWD={self._password};"
             )
+            print(
+                f"DRIVER={{PostgreSQL Unicode}};"
+                f"SERVER={self._host};"
+                f"PORT={self._port};"
+                f"DATABASE={self._database};"
+                f"UID={self._user};"
+                f"PWD={self._password};"
+            )
             print("Database connection established.")
         except Exception as e:
             print(f"Connection error: {e}")
@@ -64,9 +72,7 @@ class DatabaseController:
         try:
             cursor = self.__connection.cursor()
             cursor.execute(query)
-            columns = [
-                column[0] for column in cursor.description
-            ]
+            columns = [column[0] for column in cursor.description]
             cursor.close()
             data = [dict(zip(columns, row)) for row in results]
             return json.dumps(data[0], default=str)
