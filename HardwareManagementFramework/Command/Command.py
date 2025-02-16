@@ -65,6 +65,7 @@ class Command:
         return self._DatabaseController.get_active_appliance_control()
 
     def save_command(self, current_state, current_desc) -> bool:
+        print(current_desc, current_state)
         self._DatabaseController.update_and_insert_appliance_control(
             current_state, current_desc
         )
