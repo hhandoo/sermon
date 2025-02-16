@@ -3,3 +3,4 @@ netmon
 .vscode
 node_modules
 .venv
+.env

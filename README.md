@@ -22,15 +22,22 @@ To compile the code, run the following command:
 sudo g++ -std=c++11 netmon.cpp -o netmon && ./netmon
 ```
 
-
 ## Arduino Environment Setup
 
-```bash 
+```bash
 sudo chmod 660 /dev/ttyUSB0
 ```
-```bash 
+
+```bash
 sudo dnf install boost-devel
 ```
-```bash 
+
+```bash
 sudo dnf install libserial
+```
+
+## Setup
+
+```bash
+sudo apt install odbc-postgresql unixodbc unixodbc-dev
 ```

@@ -25,7 +25,7 @@ class SerialCommunication:
                 "Communication port must be provided or set in the PORT environment variable."
             )
 
-        self.baud_rate = baud_rate
+        self.baud_rate = baud_rate or os.getenv("BAUD_RATE")
         self.timeout = timeout
         self.__comm_port = None
         print(f"SerialCommunication initialized with port: {self.port}")

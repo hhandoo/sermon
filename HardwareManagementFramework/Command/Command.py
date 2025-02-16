@@ -19,3 +19,9 @@ class Command:
                         return response
             except Exception as e:
                 print(f"Error during communication: {e}")
+
+    def get_last_command(self) -> str:
+        pass
+
+    def save_command(self) -> bool:
+        pass
