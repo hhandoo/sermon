@@ -58,6 +58,8 @@ class Command:
                             datetime.now(),
                         )
                         return response
+                    
+                self._DatabaseController.close_connection()
             except Exception as e:
                 print(f"Error during communication: {e}")
 
