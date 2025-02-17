@@ -1,19 +1,9 @@
 #!/bin/bash
 
-CURRENT_DIR=$(pwd)
-date
-echo "Process Started !!"
+echo "0000" > /dev/ttyUSB0
 
-cd /home/sv_admin/production/sermon || exit
+sleep 1
 
-source .venv/bin/activate
-cd HardwareManagementFramework || exit
+echo "0011" > /dev/ttyUSB0
 
-# Start a new tmux session for executing the script
-tmux new-session -d 'python3 main.py --on-demand-router-restart'
-
-cd ..
-deactivate
-echo "Process Ended !!"
-
-cd "$CURRENT_DIR"
+sleep 30
