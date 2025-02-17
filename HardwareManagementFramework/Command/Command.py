@@ -149,7 +149,7 @@ class Command:
         )
 
         print("Waiting for 30 seconds.")
-        time.sleep(30)
+        time.sleep(3)
 
         self.send_command_to_MC(
             "0011", desc="GX router and 8 Port swith restarted.", send_notif=True
