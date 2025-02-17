@@ -64,7 +64,7 @@ class RouterManager:
             List[str]: Processed response from the device.
         """
         try:
-            command = "bash -c 'source /home/kaeshur/Documents/sermon/triggers/on_demand_router_restart.sh'"
+            command = "bash -c 'source /home/sv_admin/production/sermon/triggers/on_demand_router_restart.sh'"
             subprocess.run(command, shell=True, check=True)
         except Exception as e:
             print(f"Error during communication: {e}")
