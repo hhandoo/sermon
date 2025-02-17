@@ -152,5 +152,5 @@ class Command:
         time.sleep(30)
 
         self.send_command_to_MC(
-            "0011", desc="GX router and 8 Port swith turned on.", send_notif=True
+            "0011", desc="GX router and 8 Port swith restarted.", send_notif=True
         )
