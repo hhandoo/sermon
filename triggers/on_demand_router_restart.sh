@@ -9,10 +9,8 @@ cd /home/sv_admin/production/sermon || exit
 source .venv/bin/activate
 cd HardwareManagementFramework || exit
 
-# Trigger router restart (power off, then power on)
-nohup python3 main.py --on-demand-router-restart > /dev/null 2>&1 &
-disown
-sleep 10
+# Start a new tmux session for executing the script
+tmux new-session -d 'python3 main.py --on-demand-router-restart'
 
 cd ..
 deactivate
