@@ -7,7 +7,7 @@ cd /home/sv_admin/production/sermon || exit
 
 source .venv/bin/activate
 cd HardwareManagementFramework || exit
-nohup python3 main.py --on-demand-router-restart > output.log 2>&1 &
+nohup python3 main.py --on-demand-router-restart > /dev/null 2>&1 &
 cd ..
 deactivate
 echo "Process Ended !!"
