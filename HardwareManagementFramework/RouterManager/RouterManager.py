@@ -1,7 +1,9 @@
 import time
 import socket
+import speedtest
 from typing import List
 from Command.Command import Command
+from NotificationSystem.NotificationSystem import NotificationSystem
 
 
 class RouterManager:
@@ -12,11 +14,38 @@ class RouterManager:
 
     def __init__(self):
         is_internet_available = self.is_internet_available()
+        self._not = NotificationSystem()
         self.myCommand = Command()
 
         if is_internet_available == False:
             self.restart_router()
         else:
+            download_speed, upload_speed, ping = self.test_speed()
+            if download_speed < 30 or upload_speed < 30:
+                self._not.send_mailjet_email(
+                    "handoo.harsh@gmail.com",
+                    "handoo.harsh@gmail.com",
+                    "Unhealthy Internet",
+                    f"""
+                    <h1>Sermon Appliance Control v1.0</h1>
+                    <p>Dear Admin,</p>
+                    <p>Unhealthy Internet Connection detected, performing router restart.</p>
+                    <table border="1" cellspacing="0" cellpadding="8">
+                        <tr>
+                            <th>Download Speed (Mbps)</th>
+                            <th>Upload Speed (Mbps)</th>
+                            <th>Ping (ms)</th>
+                        </tr>
+                        <tr>
+                            <td>{download_speed:.2f}</td>
+                            <td>{upload_speed:.2f}</td>
+                            <td>{ping:.2f}</td>
+                        </tr>
+                    </table>
+                    <p>If this change was not expected, please review the system logs.</p>
+                """,
+                )
+                self.restart_router()
             print("Skipping Router Restart")
 
     def restart_router(self) -> List[str]:
@@ -30,15 +59,23 @@ class RouterManager:
             List[str]: Processed response from the device.
         """
         try:
-            self.myCommand.send_command_to_MC("0010", desc="8 Port Switch turned off.")
+            self.myCommand.send_command_to_MC(
+                "0010", desc="8 Port Switch turned off.", send_notif=False
+            )
             time.sleep(5)
-            self.myCommand.send_command_to_MC("0000", desc="Turing off GX Router")
+            self.myCommand.send_command_to_MC(
+                "0000", desc="GX router and 8 Port swith turned off.", send_notif=True
+            )
             print("Waiting for 30 seconds.")
             time.sleep(30)
 
-            self.myCommand.send_command_to_MC("0001", desc="8 Port Switch turned on.")
+            self.myCommand.send_command_to_MC(
+                "0001", desc="8 Port Switch turned on.", send_notif=False
+            )
             time.sleep(5)
-            self.myCommand.send_command_to_MC("0011", desc="Turing on GX Router")
+            self.myCommand.send_command_to_MC(
+                "0011", desc="GX router and 8 Port swith turned on.", send_notif=True
+            )
         except Exception as e:
             print(f"Error during communication: {e}")
 
@@ -69,7 +106,6 @@ class RouterManager:
         Returns:
             bool: True if any of the servers or websites are reachable, False otherwise.
         """
-        # List of well-known DNS servers and websites
         test_targets = [
             ("8.8.8.8", 53),
             ("1.1.1.1", 53),
@@ -89,3 +125,11 @@ class RouterManager:
 
         print("Failed to connect to all test targets.")
         return False
+
+    def test_speed(self):
+        st = speedtest.Speedtest()
+        st.get_best_server()
+        download_speed = st.download() / 1_000_000
+        upload_speed = st.upload() / 1_000_000
+        ping = st.results.ping
+        return download_speed, upload_speed, ping

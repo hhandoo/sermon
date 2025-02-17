@@ -11,7 +11,7 @@ class Command:
         self._NotificationSystem = NotificationSystem()
 
     def send_command_to_MC(
-        self, command: str, port: str = None, desc: str = "NA"
+        self, command: str, port: str = None, desc: str = "NA", send_notif: bool = True
     ) -> str:
         print("enter")
         if command != None and command != "":
@@ -28,14 +28,16 @@ class Command:
 
                         self.save_command(updated_state, desc)
 
-                        self.trigger_notification(
-                            old_state,
-                            old_desc,
-                            old_time,
-                            updated_state,
-                            desc,
-                            datetime.now(),
-                        )
+                        if send_notif:
+
+                            self.trigger_notification(
+                                old_state,
+                                old_desc,
+                                old_time,
+                                updated_state,
+                                desc,
+                                datetime.now(),
+                            )
 
                         return response
                 else:
@@ -50,14 +52,16 @@ class Command:
 
                         self.save_command(updated_state, desc)
 
-                        self.trigger_notification(
-                            old_state,
-                            old_desc,
-                            old_time,
-                            updated_state,
-                            desc,
-                            datetime.now(),
-                        )
+                        if send_notif:
+
+                            self.trigger_notification(
+                                old_state,
+                                old_desc,
+                                old_time,
+                                updated_state,
+                                desc,
+                                datetime.now(),
+                            )
                         return response
 
                 self._DatabaseController.close_connection()
@@ -76,46 +80,49 @@ class Command:
     def trigger_notification(
         self, old_state, old_desc, old_time, new_state, new_desc, new_time
     ):
-        html_text = f"""
-        <h1>Sermon Appliance Control v1.0</h1>
-        <p>Dear Admin,</p>
-        <p>The state of the appliance has been changed successfully:</p>
-        <table border="1" cellspacing="0" cellpadding="8">
-            <tr>
-                <th>Attribute</th>
-                <th>Previous</th>
-                <th>New</th>
-            </tr>
-            <tr>
-                <td>State</td>
-                <td>{old_state}</td>
-                <td>{new_state}</td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>{old_desc}</td>
-                <td>{new_desc}</td>
-            </tr>
-            <tr>
-                <td>Time</td>
-                <td>{old_time}</td>
-                <td>{new_time}</td>
-            </tr>
-        </table>
-        <p>If this change was not expected, please review the system logs.</p>
-        """
+        if old_desc != new_state:
+            html_text = f"""
+            <h1>Sermon Appliance Control v1.0</h1>
+            <p>Dear Admin,</p>
+            <p>The state of the appliance has been changed successfully:</p>
+            <table border="1" cellspacing="0" cellpadding="8">
+                <tr>
+                    <th>Attribute</th>
+                    <th>Previous</th>
+                    <th>New</th>
+                </tr>
+                <tr>
+                    <td>State</td>
+                    <td>{old_state}</td>
+                    <td>{new_state}</td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>{old_desc}</td>
+                    <td>{new_desc}</td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td>{old_time}</td>
+                    <td>{new_time}</td>
+                </tr>
+            </table>
+            <p>If this change was not expected, please review the system logs.</p>
+            """
 
-        try:
+            try:
 
-            self._NotificationSystem.send_mailjet_email(
-                "handoo.harsh@gmail.com",
-                "handoo.harsh@gmail.com",
-                "State Change Notification",
-                html_text,
-            )
-        except Exception as e:
-            print(e)
-            print("Notification wasn't sent")
+                self._NotificationSystem.send_mailjet_email(
+                    "handoo.harsh@gmail.com",
+                    "handoo.harsh@gmail.com",
+                    "State Change Notification",
+                    html_text,
+                )
+            except Exception as e:
+                print(e)
+                print("Notification wasn't sent")
+        else:
+            print("Previous state is equal to new state, no email sent")
 
     def get_all_states(self) -> str:
         query = "select * from iot.sermon_appliance_control;"
