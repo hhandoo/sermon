@@ -145,7 +145,7 @@ class Command:
     def perform_on_demand_router_restart(self) -> str:
 
         self.send_command_to_MC(
-            "0000", desc="8 Port Switch turned off.", send_notif=False
+            "0000", desc="Switch and router turned off.", send_notif=False
         )
 
         print("Waiting for 30 seconds.")
