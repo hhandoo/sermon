@@ -65,7 +65,7 @@ class RouterManager:
         """
         try:
             command = "source /home/sv_admin/production/sermon/triggers/on_demand_router_restart.sh"
-            result = subprocess.run(command, shell=True, text=True, capture_output=True)
+            subprocess.run(command, shell=True)
         except Exception as e:
             print(f"Error during communication: {e}")
 
