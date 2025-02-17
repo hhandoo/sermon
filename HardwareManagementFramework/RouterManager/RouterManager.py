@@ -1,6 +1,7 @@
 import time
 import socket
 import speedtest
+import subprocess
 from typing import List
 from Command.Command import Command
 from NotificationSystem.NotificationSystem import NotificationSystem
@@ -63,14 +64,8 @@ class RouterManager:
             List[str]: Processed response from the device.
         """
         try:
-            self.myCommand.send_command_to_MC(
-                "0000", desc="GX router and 8 Port swith turned off.", send_notif=False
-            )
-            time.sleep(30)
-
-            self.myCommand.send_command_to_MC(
-                "0011", desc="GX router and 8 Port swith turned on.", send_notif=False
-            )
+            command = "source /home/sv_admin/production/sermon/triggers/on_demand_router_restart.sh"
+            result = subprocess.run(command, shell=True, text=True, capture_output=True)
         except Exception as e:
             print(f"Error during communication: {e}")
 
