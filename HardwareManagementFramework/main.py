@@ -19,6 +19,11 @@ def main():
     parser.add_argument(
         "--auto", action="store_true", help="Enable Auto Monitor Mode"
     )  # Fix: Boolean flag
+    parser.add_argument(
+        "--on-demand-router-restart",
+        action="store_true",
+        help="Enable Auto Monitor Mode",
+    )
     parser.add_argument("--on-demand-command", type=str, help="Send Command")
     parser.add_argument(
         "--get-states", action="store_true", help="Get list of all states"
@@ -32,6 +37,9 @@ def main():
         if args.on_demand_command:
             my_com = Command()
             my_com.send_command_to_MC(command=args.on_demand_command, desc="On Demand")
+        if args.on_demand_router_restart:
+            my_com = Command()
+            my_com.perform_on_demand_router_restart()
         if args.get_states:
             my_com = Command()
             resp = my_com.get_all_states()
