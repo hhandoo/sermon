@@ -47,7 +47,9 @@ class RouterManager:
                 )
                 self.restart_router()
             else:
-                print(f"Internet is Healthy, D: {download_speed:.2f}, U:{upload_speed:.2f}, P: {ping:.2f}")
+                print(
+                    f"Internet is Healthy, D: {download_speed:.2f} Mb/s, U: {upload_speed:.2f} Mb/s, P: {ping:.2f} ms"
+                )
                 print("Skipping Router Restart")
 
     def restart_router(self) -> List[str]:
