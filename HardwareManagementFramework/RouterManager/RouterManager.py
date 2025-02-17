@@ -64,8 +64,8 @@ class RouterManager:
             List[str]: Processed response from the device.
         """
         try:
-            command = "source /home/sv_admin/production/sermon/triggers/on_demand_router_restart.sh"
-            subprocess.run(command, shell=True)
+            command = "bash -c 'source /home/kaeshur/Documents/sermon/triggers/on_demand_router_restart.sh'"
+            subprocess.run(command, shell=True, check=True)
         except Exception as e:
             print(f"Error during communication: {e}")
 
@@ -98,14 +98,14 @@ class RouterManager:
         """
         test_targets = [
             ("8.8.8.8", 53),
-            ("1.1.1.1", 53),
-            ("9.9.9.9", 53),
-            ("208.67.222.222", 53),
-            ("www.google.com", 80),
-            ("www.amazon.com", 80),
-            ("www.facebook.com", 80),
-            ("www.microsoft.com", 80),
-            ("www.apple.com", 80),
+            # ("1.1.1.1", 53),
+            # ("9.9.9.9", 53),
+            # ("208.67.222.222", 53),
+            # ("www.google.com", 80),
+            # ("www.amazon.com", 80),
+            # ("www.facebook.com", 80),
+            # ("www.microsoft.com", 80),
+            # ("www.apple.com", 80),
         ]
 
         for host, port in test_targets:
