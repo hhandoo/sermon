@@ -145,19 +145,12 @@ class Command:
     def perform_on_demand_router_restart(self) -> str:
 
         self.send_command_to_MC(
-            "0111", desc="8 Port Switch turned off.", send_notif=False
+            "0000", desc="8 Port Switch turned off.", send_notif=False
         )
-        time.sleep(1)
-        self.send_command_to_MC(
-            "0011", desc="GX router and 8 Port swith turned off.", send_notif=True
-        )
+
         print("Waiting for 30 seconds.")
         time.sleep(30)
 
         self.send_command_to_MC(
-            "1011", desc="8 Port Switch turned on.", send_notif=False
-        )
-        time.sleep(1)
-        self.send_command_to_MC(
-            "1111", desc="GX router and 8 Port swith turned on.", send_notif=True
+            "0011", desc="GX router and 8 Port swith turned on.", send_notif=True
         )
