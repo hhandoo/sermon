@@ -155,7 +155,7 @@ class Command:
         time.sleep(30)
 
         self.send_command_to_MC(
-            "101", desc="8 Port Switch turned on.", send_notif=False
+            "1011", desc="8 Port Switch turned on.", send_notif=False
         )
         time.sleep(1)
         self.send_command_to_MC(
