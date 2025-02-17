@@ -8,7 +8,7 @@ cd /home/sv_admin/production/sermon || exit
 
 source .venv/bin/activate
 cd HardwareManagementFramework || exit
-python3 main.py --on-demand-router-restart
+nohup python3 main.py --on-demand-router-restart > /dev/null 2>&1 & disown
 
 cd ..
 deactivate
