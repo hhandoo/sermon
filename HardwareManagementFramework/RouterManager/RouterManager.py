@@ -46,7 +46,9 @@ class RouterManager:
                 """,
                 )
                 self.restart_router()
-            print("Skipping Router Restart")
+            else:
+                print("Internet is Healthy")
+                print("Skipping Router Restart")
 
     def restart_router(self) -> List[str]:
         """
