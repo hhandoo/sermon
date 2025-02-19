@@ -21,37 +21,7 @@ class RouterManager:
         if is_internet_available == False:
             self.restart_router()
         else:
-            download_speed, upload_speed, ping = self.test_speed()
-            if download_speed < 30 or upload_speed < 30:
-                self._not.send_mailjet_email(
-                    "handoo.harsh@gmail.com",
-                    "handoo.harsh@gmail.com",
-                    "Unhealthy Internet",
-                    f"""
-                    <h1>Sermon Appliance Control v1.0</h1>
-                    <p>Dear Admin,</p>
-                    <p>Unhealthy Internet Connection detected, performing router restart.</p>
-                    <table border="1" cellspacing="0" cellpadding="8">
-                        <tr>
-                            <th>Download Speed (Mbps)</th>
-                            <th>Upload Speed (Mbps)</th>
-                            <th>Ping (ms)</th>
-                        </tr>
-                        <tr>
-                            <td>{download_speed:.2f}</td>
-                            <td>{upload_speed:.2f}</td>
-                            <td>{ping:.2f}</td>
-                        </tr>
-                    </table>
-                    <p>If this change was not expected, please review the system logs.</p>
-                """,
-                )
-                self.restart_router()
-            else:
-                print(
-                    f"Internet is Healthy, D: {download_speed:.2f} Mb/s, U: {upload_speed:.2f} Mb/s, P: {ping:.2f} ms"
-                )
-                print("Skipping Router Restart")
+            print("Skipping Router Restart")
 
     def restart_router(self) -> List[str]:
         """
